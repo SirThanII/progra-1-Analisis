@@ -13,9 +13,11 @@ import java.util.ArrayList;
  */
 public class PlanToFollow {
     private final ArrayList<Squad> orden;//orden en el que saldran
+    private final ArrayList<Arbol> selectedTrees;
     
     public PlanToFollow(){
-        orden= new ArrayList<>();
+        orden = new ArrayList<>();
+        selectedTrees = new ArrayList<>();
     }
     
     //Aca vienen los 2 algoritmos que tenemos que hacer para que se cree el plan
