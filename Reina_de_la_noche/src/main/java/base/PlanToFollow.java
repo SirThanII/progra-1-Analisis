@@ -125,7 +125,7 @@ public class PlanToFollow {
             System.out.println("Amout of Ants: " + totalAnts);
             */
             Squad theFirst = new Squad(totalAnts, 1, actualTime, actualTime + totalAnts);
-            actualTime += totalAnts+1;
+            actualTime += totalAnts;
             
             selectedTree.setAmountOfLeaves(selectedTree.getAmountOfLeaves() - totalAnts);
             //System.out.println("Amount of leafs after the squad recolection: " + selectedTree.getAmountOfLeaves());
