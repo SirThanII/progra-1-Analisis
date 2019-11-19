@@ -19,11 +19,11 @@ public class Globals {
     public static final int AMOUNTOFSQUADS=4; //AMOUNT OF ANTS PER SQUAD
     
     public static ArrayList<Arbol> trees = new ArrayList<Arbol>();
-    public static final int amountOfTrees = 100;
-    public static final int firstXPos = 100;
-    public static final int lastXPos = 1000;
+    public static final int AMOUNT_OF_TREES = 100;
+    public static final int FIRST_X_POS = 100;
+    public static final int LAST_X_POS = 1000;
     
-    public static final int angle = 25;
+    public static final int ANGLE = 25;
     //WE ARE GOING TO WORK EVERYTHING BY 1 UNIT
     
 }

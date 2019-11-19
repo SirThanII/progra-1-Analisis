@@ -5,14 +5,23 @@
  */
 package base;
 
+import common.TestGenerator;
+import common.TestTree;
+import java.util.ArrayList;
+
 /**
  *
  * @author esteb
  */
 public class main {
     public static void main(String[] args) {
+        TestGenerator generator = new TestGenerator();
+        ArrayList<TestTree>[] trees = generator.getTests();
         PlanToFollow plan = new PlanToFollow();
         plan.treeGenerator();
-        plan.GreedyPlan(Globals.trees, plan.getAnthillDistance(), 60);
+        for(ArrayList<TestTree> tree: trees) {
+            plan.GreedyPlan(tree, 15, 60);
+        
+        }
     }
 }

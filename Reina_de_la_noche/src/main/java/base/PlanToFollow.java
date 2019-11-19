@@ -5,6 +5,7 @@
  */
 package base;
 
+import common.TestTree;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -33,9 +34,9 @@ public class PlanToFollow {
     
     public void treeGenerator() {
         Random randomGenerator = new Random();
-        int smallestXPos = Globals.lastXPos;
-        for (int i=0; i< Globals.amountOfTrees ;i++) {
-            int xPos = ThreadLocalRandom.current().nextInt(Globals.firstXPos, Globals.lastXPos+1);
+        int smallestXPos = Globals.LAST_X_POS;
+        for (int i=0; i< Globals.AMOUNT_OF_TREES ;i++) {
+            int xPos = ThreadLocalRandom.current().nextInt(Globals.FIRST_X_POS, Globals.LAST_X_POS+1);
             if (xPos < smallestXPos) {
                 smallestXPos = xPos;
             }
@@ -55,7 +56,7 @@ public class PlanToFollow {
         }
         
         // Hormiguero
-        int anthillPos = ThreadLocalRandom.current().nextInt(0, Globals.firstXPos);
+        int anthillPos = ThreadLocalRandom.current().nextInt(0, Globals.FIRST_X_POS);
         PlanToFollow.anthillDistance = smallestXPos - anthillPos;
     }
     
@@ -63,8 +64,11 @@ public class PlanToFollow {
         return anthillDistance;
     }
     
-    public void GreedyPlan(ArrayList<Arbol> trees, int distace, int time) {
+    public void GreedyPlan(ArrayList<TestTree> trees, int distace, int time) {
+        
+        
         // Se calcula la posicion del hormiguero
+        /*
         int closestTree = 0;
         for (Arbol actualTree: trees) {
             if (closestTree == 0 || actualTree.getxPos() < closestTree) {
@@ -84,6 +88,7 @@ public class PlanToFollow {
             float thirdPercentage = (lowestHeight/treeHeight) * 33;
             float treeValue = ((treeHeight/lowestHeight) * 33) + ((closestTree/treeDistance) * 33) + ((lowestHeight/treeHeight) * 33);
         }
+        */
     }
 }
 
