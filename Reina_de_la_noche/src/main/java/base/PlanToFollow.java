@@ -63,7 +63,7 @@ public class PlanToFollow {
         int closestTree = 0;
             
         for (TestTree tree: trees) {
-            System.out.println(trees);
+            
             if (lowestHeight == 0 || tree.getTreeHeight() < lowestHeight) {
                 lowestHeight = tree.getTreeHeight();
             }
@@ -80,12 +80,12 @@ public class PlanToFollow {
             float treeHeight = tree.getTreeHeight();
             int amountOfLeaves = tree.getAmountOfLeaves();
 
-            float treeValue = ((amountOfLeaves / maxLeafAmount) * 33) +
-                    ((closestTree / treeDistance) * 33) +
+            float treeValue = (((float)(amountOfLeaves) / (float)(maxLeafAmount)) * 33) +
+                    (((float)(closestTree) / (float)(treeDistance)) * 33) +
                     ((lowestHeight / treeHeight) * 33);
             
             tree.setScore(treeValue);
-            
+            System.out.println(tree);
         }
         
         // Se calcula la posicion del hormiguero

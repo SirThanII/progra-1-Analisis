@@ -71,9 +71,11 @@ public class TestTree {
     public void setTreeHeight(float treeHeight) {
         this.treeHeight = treeHeight;
     }
-    
+
     @Override
     public String toString() {
-        return "TestTree{" + "posX=" + posX + ", length=" + length + ", levels=" + levels + ", leafLength=" + leafLength + '}';
-    }       
+        return "TestTree{" + "posX=" + posX + ", length=" + length + ", levels=" + levels + ", leafLength=" + leafLength + ", amountOfLeaves=" + amountOfLeaves + ", score=" + score + ", treeHeight=" + treeHeight + '}';
+    }
+    
+           
 }

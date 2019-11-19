@@ -19,6 +19,7 @@ public class main {
         ArrayList<TestTree>[] trees = generator.getTests();
         PlanToFollow plan = new PlanToFollow();
         for(ArrayList<TestTree> tree: trees) {
+            System.out.println("##########################3 PRUEBA ##################################3");
             plan.GreedyPlan(tree, 15, 60);
         }
     }
