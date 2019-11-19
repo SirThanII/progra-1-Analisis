@@ -12,7 +12,6 @@ public class TestGenerator implements ITestConstants {
         for(int testCount=0; testCount<AMOUNT_OF_TESTS; testCount++) {
             tests[testCount] = new ArrayList<TestTree>();
         }
-
         generateTests();
     }
 

@@ -17,21 +17,16 @@ import java.util.concurrent.ThreadLocalRandom;
 public class PlanToFollow {
     private final ArrayList<Squad> orden;//orden en el que saldran
     private final ArrayList<Arbol> selectedTrees;
-    public static int anthillDistance;
-    public static int maxLeafAmount;
-    public static float lowestHeight;
     
     public PlanToFollow(){
         orden = new ArrayList<>();
         selectedTrees = new ArrayList<>();
-        maxLeafAmount = 0;
-        lowestHeight = 0;
     }
     
     //Aca vienen los 2 algoritmos que tenemos que hacer para que se cree el plan
     //podemos hacer 2 clases subsidiaras algo asi como PlanProb. PlanGreed
     //y que se llame desde aca y se quede con el que le de mejor relacion hojas/tiempo
-    
+    /*
     public void treeGenerator() {
         Random randomGenerator = new Random();
         int smallestXPos = Globals.LAST_X_POS;
@@ -59,13 +54,39 @@ public class PlanToFollow {
         int anthillPos = ThreadLocalRandom.current().nextInt(0, Globals.FIRST_X_POS);
         PlanToFollow.anthillDistance = smallestXPos - anthillPos;
     }
+    */
     
-    public int getAnthillDistance() {
-        return anthillDistance;
-    }
     
     public void GreedyPlan(ArrayList<TestTree> trees, int distace, int time) {
+        int maxLeafAmount = 0;
+        float lowestHeight = 0;
+        int closestTree = 0;
+            
+        for (TestTree tree: trees) {
+            System.out.println(trees);
+            if (lowestHeight == 0 || tree.getTreeHeight() < lowestHeight) {
+                lowestHeight = tree.getTreeHeight();
+            }
+            if (tree.getAmountOfLeaves() > maxLeafAmount) {
+                maxLeafAmount = tree.getAmountOfLeaves();
+            }
+            if (tree.getPosX() > closestTree) {
+                closestTree = tree.getPosX();
+            } 
+        }
         
+        for (TestTree tree: trees) {
+            int treeDistance = common.ITestConstants.TEST_POSICION_HORMIGUERO - tree.getPosX();
+            float treeHeight = tree.getTreeHeight();
+            int amountOfLeaves = tree.getAmountOfLeaves();
+
+            float treeValue = ((amountOfLeaves / maxLeafAmount) * 33) +
+                    ((closestTree / treeDistance) * 33) +
+                    ((lowestHeight / treeHeight) * 33);
+            
+            tree.setScore(treeValue);
+            
+        }
         
         // Se calcula la posicion del hormiguero
         /*

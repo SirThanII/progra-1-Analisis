@@ -18,10 +18,8 @@ public class main {
         TestGenerator generator = new TestGenerator();
         ArrayList<TestTree>[] trees = generator.getTests();
         PlanToFollow plan = new PlanToFollow();
-        plan.treeGenerator();
         for(ArrayList<TestTree> tree: trees) {
             plan.GreedyPlan(tree, 15, 60);
-        
         }
     }
 }
