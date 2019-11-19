@@ -70,6 +70,8 @@ public class PlanToFollow {
         float antsTimeLimit = time - planTimeLimit;
         // Tiempo limite del plan en milisegundos
         planTimeLimit *= 1000;
+        antsTimeLimit *= 1000; // De uno en uno, todos los arboles
+//        double timePerSquad = antsTimeLimit * 0.20 * 1000; //20% por squad del tiempo para recoleccion, solo 4 squads
         
         for (TestTree tree: trees) {
             
@@ -101,36 +103,39 @@ public class PlanToFollow {
         trees.sort(Comparator.comparing(TestTree::getScore).reversed());
         
         //Creating and sending squads
-        
-        System.out.println("Time: " + time);
-        System.out.println("Plan time: " + planTimeLimit);
+        System.out.println("-------------------------------");
+        System.out.println("    Time: " + time);
+        System.out.println("    Planning time: " + planTimeLimit);
+        System.out.println("    Harvest time: " + antsTimeLimit);
+        System.out.println("-------------------------------");
         
         float actualTime = 0;
+        int actualTree = 1;
         for(TestTree selectedTree: trees){
             long timeDiference = System.currentTimeMillis() - timeStart;
-            System.out.println("Diferencia: " + timeDiference);
+//            System.out.println("Diferencia: " + timeDiference);
             if ((float)timeDiference >= planTimeLimit) {
-                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! El plan alcanzo su tiempo limite");
+                System.out.println(" ---- !!! El plan alcanzo su tiempo limite !!! ---- ");
                 break;
             }
             float totalDistance = selectedTree.getLength() + (common.ITestConstants.TEST_POSICION_HORMIGUERO - selectedTree.getPosX());
-            int totalAnts = Globals.AMOUNT_OF_TIME / ((int)totalDistance / Globals.VELOCITY);
+            int totalAnts = (int)antsTimeLimit / ((int)totalDistance / Globals.VELOCITY);
             if(selectedTree.getAmountOfLeaves() < totalAnts){
                 totalAnts = selectedTree.getAmountOfLeaves();
             }
-            /*
-//            System.out.println("Actual Tree: " + amountOfTrees);
+
+            System.out.println("Actual Tree: " + actualTree);
             System.out.println("Amount of leafs: " + selectedTree.getAmountOfLeaves());
             System.out.println("Total distance: " + totalDistance);
             System.out.println("Amout of Ants: " + totalAnts);
-            */
-            Squad theFirst = new Squad(totalAnts, 1, actualTime, actualTime + totalAnts);
+
+            Squad actualSquad  = new Squad(totalAnts, 1, actualTime, actualTime + totalAnts);
             actualTime += totalAnts;
             
             selectedTree.setAmountOfLeaves(selectedTree.getAmountOfLeaves() - totalAnts);
-            //System.out.println("Amount of leafs after the squad recolection: " + selectedTree.getAmountOfLeaves());
-            //System.out.println("-------------------------");
-            
+            System.out.println("Amount of leafs after the squad recolection: " + selectedTree.getAmountOfLeaves());
+            System.out.println("-------------------------");
+            actualTree++;
         }
         
         // Se calcula la posicion del hormiguero
