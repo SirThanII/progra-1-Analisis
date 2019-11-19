@@ -14,7 +14,7 @@ public class Globals {
     public static final int MINCOUNT=0;
     public static final int ONE=1;
     public static final int PAIR=2;
-    public static final int VELOCITY=1; //VELOCITY PER ANTS (1 M/S)
+    public static final int VELOCITY=5; //VELOCITY PER ANTS (M/S)
     public static final int AMOUNTOFANTS=60; //AMOUNT OF ANTS PER ITERACTION
     public static final int AMOUNTOFSQUADS=4; //AMOUNT OF ANTS PER SQUAD
     
@@ -23,7 +23,7 @@ public class Globals {
     public static final int FIRST_X_POS = 100;
     public static final int LAST_X_POS = 1000;
     
-    public static final int AMOUNT_OF_TIME = 3600;
+    public static final int AMOUNT_OF_TIME = 10800; //AMOUNT OF TIME PER SQUAD
     
     public static final int ANGLE = 25;
     //WE ARE GOING TO WORK EVERYTHING BY 1 UNIT

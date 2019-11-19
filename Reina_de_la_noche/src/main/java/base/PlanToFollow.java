@@ -87,7 +87,7 @@ public class PlanToFollow {
                     ((lowestHeight / treeHeight) * 33);
             
             tree.setScore(treeValue);
-            System.out.println(tree);
+//            System.out.println(tree);
         }
         
         //Sort by the score obtain
@@ -95,20 +95,20 @@ public class PlanToFollow {
         
         //Creating and sending squads
         
-        //for(TestTree selectedTree: trees){
-        for(int amountOfTrees = 0; amountOfTrees < 10; amountOfTrees++){
-            TestTree prueba = trees.get(amountOfTrees);
-        
-            float totalDistance = prueba.getLength() + (common.ITestConstants.TEST_POSICION_HORMIGUERO - prueba.getPosX());
-            int totalAnts = Globals.AMOUNT_OF_TIME / (int)totalDistance;
-            System.out.println("Actual Tree: " + amountOfTrees);
-            System.out.println("Amount of leafs: " + prueba.getAmountOfLeaves());
+        for(TestTree selectedTree: trees){
+            float totalDistance = selectedTree.getLength() + (common.ITestConstants.TEST_POSICION_HORMIGUERO - selectedTree.getPosX());
+            int totalAnts = Globals.AMOUNT_OF_TIME / ((int)totalDistance / Globals.VELOCITY);
+            if(selectedTree.getAmountOfLeaves() < totalAnts){
+                totalAnts = selectedTree.getAmountOfLeaves();
+            }
+//            System.out.println("Actual Tree: " + amountOfTrees);
+            System.out.println("Amount of leafs: " + selectedTree.getAmountOfLeaves());
             System.out.println("Total distance: " + totalDistance);
             System.out.println("Amout of Ants: " + totalAnts);
             Squad theFirst = new Squad(totalAnts, 1, 1, totalAnts + 1);
 
-            prueba.setAmountOfLeaves(prueba.getAmountOfLeaves() - totalAnts);
-            System.out.println("Amount of leafs after the squad recolection: " + prueba.getAmountOfLeaves());
+            selectedTree.setAmountOfLeaves(selectedTree.getAmountOfLeaves() - totalAnts);
+            System.out.println("Amount of leafs after the squad recolection: " + selectedTree.getAmountOfLeaves());
             System.out.println("-------------------------");
         }
         
