@@ -19,7 +19,8 @@ public class main {
         ArrayList<TestTree>[] trees = generator.getTests();
         PlanToFollow plan = new PlanToFollow();
         for(ArrayList<TestTree> tree: trees) {
-            System.out.println("##########################3 PRUEBA ##################################3");
+            System.out.println("########################## PRUEBA ##################################");
+            // EL tiempo se trabaja en seconds
             plan.GreedyPlan(tree, 15, 60);
         }
     }
