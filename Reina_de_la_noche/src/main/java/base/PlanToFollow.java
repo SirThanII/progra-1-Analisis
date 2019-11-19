@@ -7,6 +7,8 @@ package base;
 
 import common.TestTree;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -86,6 +88,28 @@ public class PlanToFollow {
             
             tree.setScore(treeValue);
             System.out.println(tree);
+        }
+        
+        //Sort by the score obtain
+        trees.sort(Comparator.comparing(TestTree::getScore).reversed());
+        
+        //Creating and sending squads
+        
+        //for(TestTree selectedTree: trees){
+        for(int amountOfTrees = 0; amountOfTrees < 10; amountOfTrees++){
+            TestTree prueba = trees.get(amountOfTrees);
+        
+            float totalDistance = prueba.getLength() + (common.ITestConstants.TEST_POSICION_HORMIGUERO - prueba.getPosX());
+            int totalAnts = Globals.AMOUNT_OF_TIME / (int)totalDistance;
+            System.out.println("Actual Tree: " + amountOfTrees);
+            System.out.println("Amount of leafs: " + prueba.getAmountOfLeaves());
+            System.out.println("Total distance: " + totalDistance);
+            System.out.println("Amout of Ants: " + totalAnts);
+            Squad theFirst = new Squad(totalAnts, 1, 1, totalAnts + 1);
+
+            prueba.setAmountOfLeaves(prueba.getAmountOfLeaves() - totalAnts);
+            System.out.println("Amount of leafs after the squad recolection: " + prueba.getAmountOfLeaves());
+            System.out.println("-------------------------");
         }
         
         // Se calcula la posicion del hormiguero
