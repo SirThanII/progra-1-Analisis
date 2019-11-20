@@ -111,12 +111,20 @@ public class PlanToFollow {
         float actualTime = 0;
         int actualObject = 1;
         for(TestTree selectedTree: trees){
+            long timeDiference = System.currentTimeMillis() - timeStart;
             float timeLeft = 0, antsLeft = 0;
             boolean wastes = false, forceHarvest = false;
             if (actualTime >= antsTimeLimit) {
                 System.out.println(" ---- !!! El plan alcanzo su tiempo limite !!! ---- ");
                 break;
+            }            
+         
+            System.out.println("Diferencia: " + timeDiference);
+            if ((float)timeDiference >= planTimeLimit) {
+                System.out.println(" ---- !!! El plan alcanzo su tiempo limite (real)!!! ---- ");
+                break;
             }
+            
             if(actualTime + timePerSquad > antsTimeLimit){
                 timePerSquad = antsTimeLimit - actualTime;
                 System.out.println("Revisar: " + timePerSquad);
