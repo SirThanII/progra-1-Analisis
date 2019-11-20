@@ -18,10 +18,12 @@ public class main {
         TestGenerator generator = new TestGenerator();
         ArrayList<TestTree>[] trees = generator.getTests();
         PlanToFollow plan = new PlanToFollow();
+        int actualTest = 1;
         for(ArrayList<TestTree> tree: trees) {
-            System.out.println("########################## PRUEBA ##################################");
+            System.out.println("########################## PRUEBA " + actualTest + " ##################################");
             // EL tiempo se trabaja en seconds
             plan.GreedyPlan(tree, 15, 60);
+            actualTest++;
         }
     }
 }

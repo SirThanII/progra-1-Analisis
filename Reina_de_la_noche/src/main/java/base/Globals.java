@@ -23,7 +23,8 @@ public class Globals {
     public static final int FIRST_X_POS = 100;
     public static final int LAST_X_POS = 1000;
     
-    public static final int AMOUNT_OF_TIME = 10800; //AMOUNT OF TIME PER SQUAD
+    public static final double PLANNING_PERCENTAJE = 0.20;
+    public static final int MS_CONVERTION = 1000;
     
     public static final int ANGLE = 25;
     //WE ARE GOING TO WORK EVERYTHING BY 1 UNIT
