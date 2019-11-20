@@ -7,7 +7,9 @@ package base;
 
 import common.TestGenerator;
 import common.TestTree;
+import interfaz.Sketch;
 import java.util.ArrayList;
+import processing.core.PApplet;
 
 /**
  *
@@ -25,5 +27,7 @@ public class main {
             plan.GreedyPlan(tree, 15, 60);
             actualTest++;
         }
+        Sketch sketch = new Sketch();
+        PApplet.main(new String[] {"--present", "interfaz.Sketch"});
     }
 }
