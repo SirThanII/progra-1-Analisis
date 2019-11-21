@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package base;
+import common.ITestConstants;
 
 /**
  *
@@ -21,6 +22,8 @@ public class Squad {
         this.id = id;
         this.firstTime = firstTime;
         this.lastTime = lastTime;
+        this.firstPosX = new int[2];
+        this.firstPosX = new int[2];
     }
 
     public int getAmmountOfMembers() {
@@ -62,7 +65,21 @@ public class Squad {
     public double getTakeOffTime() {
         return takeOffTime;
     }
-    
-    
+
+    public int[] getFirstPosX() {
+        return firstPosX;
+    }
+
+    public void setFirstPosX(int[] firstPosX) {
+        this.firstPosX = firstPosX;
+    }
+
+    public int[] getLastPosX() {
+        return lastPosX;
+    }
+
+    public void setLastPosX(int[] lastPosX) {
+        this.lastPosX = lastPosX;
+    }
     
 }

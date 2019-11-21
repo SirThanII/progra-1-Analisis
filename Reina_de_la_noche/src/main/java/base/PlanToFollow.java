@@ -199,5 +199,14 @@ public class PlanToFollow {
         System.out.println("Amount of leafs harvest: " + leafsHarvest);
         return leafsHarvest;
     }
+
+    public ArrayList<Squad> getOrden() {
+        return orden;
+    }
+
+    public ArrayList<TestTree> getSelectedTrees() {
+        return selectedTrees;
+    }
+    
 }
 
