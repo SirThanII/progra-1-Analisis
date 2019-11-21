@@ -9,7 +9,8 @@ public class TestTree {
     double leafLength;
     int amountOfLeaves;
     float score;
-    float treeHeight;
+    Float treeHeight;
+    int ID;
 
     public TestTree(int pPosX, int pLength, int pLevels) {
         this.posX = pPosX;
@@ -58,7 +59,7 @@ public class TestTree {
         this.amountOfLeaves = amountOfLeaves;
     }
 
-    public float getScore() {
+    public Float getScore() {
         return score;
     }
 
@@ -78,8 +79,8 @@ public class TestTree {
         return id;
     }
 
-    public void setID(int id) {
-        this.id = id;
+    public int getID() {
+        return ID;
     }
     
     @Override
