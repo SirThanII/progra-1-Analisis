@@ -28,6 +28,6 @@ public class main {
             actualTest++;
         }
         
-        new Sketch().setVisible(true);
+//        new Sketch().setVisible(true);
     }
 }
