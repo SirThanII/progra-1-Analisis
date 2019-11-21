@@ -5,6 +5,7 @@ public class TestTree {
     int posX;
     int length;
     int levels;
+    int id;
     double leafLength;
     int amountOfLeaves;
     float score;
@@ -15,6 +16,7 @@ public class TestTree {
         this.posX = pPosX;
         this.length = pLength;
         this.levels = pLevels;
+        this.id = 0;
         this.amountOfLeaves = (int)Math.pow(2, this.levels);
         for(leafLength=pLength; --pLevels>0; leafLength*=ITestConstants.GROW_PERCENTAGE);
         this.treeHeight = calculateHeight(this.length, common.ITestConstants.GROW_PERCENTAGE, leafLength);
@@ -71,6 +73,10 @@ public class TestTree {
 
     public void setTreeHeight(float treeHeight) {
         this.treeHeight = treeHeight;
+    }
+    
+    public float getID() {
+        return id;
     }
 
     public int getID() {

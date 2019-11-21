@@ -9,57 +9,40 @@ package interfaz;
  *
  * @author Tony1
  */
-import processing.core.PApplet;
+import java.awt.Color;
+import java.awt.Graphics;
 
-public class Sketch extends PApplet {
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
-    float theta;   
+public class Sketch extends JFrame {
 
-    @Override
-    public void settings() {
-        size(640, 360);
+    public Sketch() {
+        super("Fractal Tree");
+        setBounds(100, 100, 1400, 1000);
+        setResizable(false);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    @Override
-    public void draw() {
-        background(0);
-        frameRate(30);
-        stroke(255);
-        // Let's pick an angle 0 to 90 degrees based on the mouse position
-        float a = (mouseX / (float) width) * 90f;
-        // Convert it to radians
-        theta = radians(a);
-        // Start the tree from the bottom of the screen
-        translate(width/2,height);
-        // Draw a line 120 pixels
-        line(0,0,0,-120);
-        // Move to the end of that line
-        translate(0,-120);
-        // Start the recursive branching!
-        branch(120);
-    }
-
-    void branch(float h) {
-        // Each branch will be 2/3rds the size of the previous one
-        h *= 0.66;
-
-        // All recursive functions must have an exit condition!!!!
-        // Here, ours is when the length of the branch is 2 pixels or less
-        if (h > 2) {
-          pushMatrix();    // Save the current state of transformation (i.e. where are we now)
-          rotate(theta);   // Rotate by theta
-          line(0, 0, 0, -h);  // Draw the branch
-          translate(0, -h); // Move to the end of the branch
-          branch(h);       // Ok, now call myself to draw two new branches!!
-          popMatrix();     // Whenever we get back here, we "pop" in order to restore the previous matrix state
-
-          // Repeat the same thing, only branch off to the "left" this time!
-          pushMatrix();
-          rotate(-theta);
-          line(0, 0, 0, -h);
-          translate(0, -h);
-          branch(h);
-          popMatrix();
+    private void drawTree(Graphics g, int x1, int y1, double angle, int depth) {
+        if(depth==1){
+            g.setColor(Color.green);
         }
+        if (depth == 0){
+            g.setColor(Color.ORANGE);
+            return;
+        }
+        int x2 = x1 + (int) (Math.cos(Math.toRadians(angle)) * depth );
+        int y2 = y1 + (int) (Math.sin(Math.toRadians(angle)) * depth );
+        g.drawLine(x1, y1, x2, y2);
+        drawTree(g, x2, y2, angle - 15, depth - 1);
+        drawTree(g, x2, y2, angle + 15, depth - 1);
     }
+    
+    @Override
+    public void paint(Graphics g) {
+        g.setColor(Color.ORANGE);
+        drawTree(g, getWidth() / 2, getHeight(), -90, 18);
+    }   
 }
