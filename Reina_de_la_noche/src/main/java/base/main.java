@@ -28,6 +28,6 @@ public class main {
             actualTest++;
         }
         
-        PApplet.main(new String[] {"--present", "interfaz.Sketch"});
+        new Sketch().setVisible(true);
     }
 }
