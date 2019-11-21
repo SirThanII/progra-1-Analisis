@@ -5,6 +5,7 @@
  */
 package base;
 
+import Prob.ProbGetter;
 import common.TestTree;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,17 +59,23 @@ public class PlanToFollow {
     }
     */
     
+    public void choosePlan(ArrayList<TestTree> trees, int distace, double time){
+        GreedyPlan(trees, distace, time);
+        ProbGetter pg=new ProbGetter(trees);
+        pg.calRoute((int)time);
+        
+    }
     
-    public void GreedyPlan(ArrayList<TestTree> trees, int distace, float time) {
+    public void GreedyPlan(ArrayList<TestTree> trees, int distace, double time) {
         long timeStart = System.currentTimeMillis();
         int maxLeafAmount = 0;
-        float lowestHeight = 0;
+        double lowestHeight = 0;
         int closestTree = 0;
         int idTree = 1;
         
         // Tiempo limite de las hormigas
-        float planTimeLimit = (float) (time * Globals.PLANNING_PERCENTAJE);
-        float antsTimeLimit = time - planTimeLimit;
+        double planTimeLimit = (float) (time * Globals.PLANNING_PERCENTAJE);
+        double antsTimeLimit = time - planTimeLimit;
         
         // Tiempo limite del plan en milisegundos
         planTimeLimit *= Globals.MS_CONVERTION;
@@ -91,14 +98,14 @@ public class PlanToFollow {
         
         for (TestTree tree: trees) {
             int treeDistance = common.ITestConstants.TEST_POSICION_HORMIGUERO - tree.getPosX();
-            float treeHeight = tree.getTreeHeight();
+            double treeHeight = tree.getTreeHeight();
             int amountOfLeaves = tree.getAmountOfLeaves();
 
-            float treeValue = (((float)(amountOfLeaves) / (float)(maxLeafAmount)) * 33) +
-                    (((float)(closestTree) / (float)(treeDistance)) * 33) +
+            double treeValue = (((double)(amountOfLeaves) / (double)(maxLeafAmount)) * 33) +
+                    (((double)(closestTree) / (double)(treeDistance)) * 33) +
                     ((lowestHeight / treeHeight) * 33);
             
-            tree.setScore(treeValue);
+            tree.setScore(new Float(treeValue));
         }
         
         //Sort by the score obtain
@@ -139,7 +146,7 @@ public class PlanToFollow {
                 totalAnts = selectedTree.getAmountOfLeaves();
             }
             
-            float timeSpend = timePerAnt * totalAnts;
+            double timeSpend = timePerAnt * totalAnts;
             
             
             if(actualTime + timeSpend > antsTimeLimit){

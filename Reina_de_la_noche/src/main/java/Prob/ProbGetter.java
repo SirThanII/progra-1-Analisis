@@ -31,7 +31,6 @@ public class ProbGetter {
     private final ArrayList<Squad> squads=new ArrayList<>();
     private final HashMap<Integer,ArrayList<TestTree>> Groups=new HashMap<>();
     private final LinkedHashMap<Integer,Double> PorcentajeGroups=new LinkedHashMap<>();
-    private float currentTime;    
     private String FileToCSV;
     
     public ProbGetter(ArrayList<TestTree> parboles){
@@ -57,6 +56,7 @@ public class ProbGetter {
         int GroupCounter= MINPROB;
         Groups.put(GroupCounter, new ArrayList<>());
         Float lastScore=arboles.get(MINPROB).getScore();
+        int treeID=MINPROB;
         for (TestTree arbole : arboles) {
             if(lastScore-arbole.getScore()>0.1){//si la diferencia llega a ser cierta entonces
                 //crea un nuevo grupo
@@ -64,9 +64,11 @@ public class ProbGetter {
                 GroupCounter++;
                 Groups.put(GroupCounter, new ArrayList<>());
             }
+            arbole.setID(treeID);
             ArrayList<TestTree> temp= Groups.get(GroupCounter);
             temp.add(arbole);
             Groups.put(GroupCounter, temp);
+            treeID++;
         }
         
     }
