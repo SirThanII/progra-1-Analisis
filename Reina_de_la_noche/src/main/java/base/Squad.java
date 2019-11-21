@@ -12,11 +12,11 @@ package base;
 public class Squad {
     private int ammountOfMembers;//cantidad de hormigas
     private int id;//id del squad
-    private float firstTime;//tiempo de la primera hormiga
-    private float lastTime;//tiempo de la ultima hormiga
-    private float takeOffTime;//tiempo en que el squad sale
+    private double firstTime;//tiempo de la primera hormiga
+    private double lastTime;//tiempo de la ultima hormiga
+    private double takeOffTime;//tiempo en que el squad sale
 
-    public Squad(int ammountOfMembers, int id, float firstTime, float lastTime) {
+    public Squad(int ammountOfMembers, int id, double firstTime, double lastTime) {
         this.ammountOfMembers = ammountOfMembers;
         this.id = id;
         this.firstTime = firstTime;
@@ -31,11 +31,11 @@ public class Squad {
         return id;
     }
 
-    public float getFirstTime() {
+    public double getFirstTime() {
         return firstTime;
     }
 
-    public float getLastTime() {
+    public double getLastTime() {
         return lastTime;
     }
 
@@ -59,7 +59,7 @@ public class Squad {
         this.takeOffTime = takeOffTime;
     }
 
-    public float getTakeOffTime() {
+    public double getTakeOffTime() {
         return takeOffTime;
     }
     
