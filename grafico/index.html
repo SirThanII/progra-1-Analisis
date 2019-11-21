@@ -1,0 +1,205 @@
+<html>
+    <head>
+        <!DOCTYPE html>
+        <meta charset="utf-8"/>
+        <script src="d3.js"></script>
+        <style>
+            label {
+                margin-left: 200px;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div id="Grafico"> </div>
+
+        <label>Algoritmo Greedy</label>
+
+        <label >Algoritmo Probabilistico</label>
+
+        <script>
+            function compare( a, b ) {
+                if ( parseInt(a.Tiempo) < parseInt(b.Tiempo) ){
+                    return 1;
+                }
+                if ( parseInt(a.Tiempo) > parseInt(b.Tiempo) ){
+                    return -1;
+                }
+                return 0;
+            }
+
+            function compare2( a, b ) {
+                if ( parseInt(a.Cantidad) < parseInt(b.Cantidad) ){
+                    return -1;
+                }
+                if ( parseInt(a.Cantidad) > parseInt(b.Cantidad) ){
+                    return 1;
+                }
+                return 0;
+            }
+
+            // set the dimensions and margins of the graph
+            var margin = {top: 10, right: 30, bottom: 30, left: 60},
+                width = 460 - margin.left - margin.right,
+                height = 400 - margin.top - margin.bottom;
+                    
+            var datos1 = []
+            var datos2 = []
+            var actual = true;
+
+            function leerDatos() {    
+                d3.csv("resultados.csv").then(function(data) {
+                    data.forEach(element => {
+                        var encontrado = false;
+                        if (element.Algoritmo == "1") {
+                            datos1.forEach(elementoExistente => {
+                                if (elementoExistente.Cantidad == element.Cantidad && elementoExistente.Algoritmo == element.Algoritmo) {
+                                    elementoExistente.Tiempo += element.Tiempo;
+                                    elementoExistente.repeticiones += 1;
+                                    encontrado = true;
+                                }
+                            })
+                        } else {
+                            datos2.forEach(elementoExistente => {
+                                if (elementoExistente.Cantidad == element.Cantidad && elementoExistente.Algoritmo == element.Algoritmo) {
+                                    elementoExistente.Tiempo += element.Tiempo;
+                                    elementoExistente.repeticiones += 1;
+                                    encontrado = true;
+                                }
+                            })
+                        }
+                        if (!encontrado) {
+                            if (element.Algoritmo == "1") {
+                                datos1.push({
+                                    Cantidad : element.Cantidad,
+                                    Tiempo : element.Tiempo,
+                                    Algoritmo : element.Algoritmo,
+                                    Repeticiones : 1,
+                                })
+                            } else {
+                                datos2.push({
+                                    Cantidad : element.Cantidad,
+                                    Tiempo : element.Tiempo,
+                                    Algoritmo : element.Algoritmo,
+                                    Repeticiones : 1,
+                                })
+                            }
+                        }
+                    });
+                    datos1.forEach(element => {
+                        if (element.repeticiones > 1) {
+                            element.Tiempo /= element.Repeticiones;
+                        }
+                    })
+                    datos2.forEach(element => {
+                        if (element.repeticiones > 1) {
+                            element.Tiempo /= element.Repeticiones;
+                        }
+                    })
+                    //console.log(datos1, datos2);
+                    greedy(datos1)
+                    probabilistico(datos2);
+                })
+            }
+
+            cantidades = function(d) {
+                return d.Cantidad;
+            };
+
+            tiempos = function(d) {
+                return d.Tiempo;
+            };
+
+            function greedy(data) {
+                // append the svg object to the body of the page
+                console.log("Greedy: ", data);
+                var svg = d3.select("#Grafico")
+                    .append("svg")
+                        .attr("width", width + margin.left + margin.right)
+                        .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                        .attr("transform",
+                            "translate(" + margin.left + "," + margin.top + ")");
+                //debugger;
+                data.sort(compare2);
+
+                var x = d3.scaleBand()
+                .domain(data.map(cantidades))
+                .range([0, width + margin.top])
+                svg.append("g").call(d3.axisBottom(x)).attr("transform", "translate(" + 0 + ", " + (height) + ")")
+                
+                data.sort(compare);
+                
+                dominioEjeY = data.map(tiempos); dominioEjeY.push(0);
+                var y = d3.scalePoint()
+                    .domain(dominioEjeY)
+                    .range([0,height])
+                svg.append("g").call(d3.axisLeft(y))
+
+                svg.selectAll("mybar")
+                    .data(data)
+                    .enter()
+                    .append("rect")
+                        .attr("x", d => x(cantidades(d)))
+                        .attr("y", d => y(tiempos(d)))
+                        .attr("width", x.bandwidth())
+                        .attr("height", function(d) { return height - y(d.Tiempo); })
+                        .attr("fill", "#69b3a2")
+            }
+
+            function probabilistico(data) {
+                console.log("Probabilistico: ", data);
+                // append the svg object to the body of the page
+                //d3.select("#Grafico").selectAll("*").remove();
+
+                var svg = d3.select("#Grafico")
+                    .append("svg")
+                        .attr("width", width + margin.left + margin.right)
+                        .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                        .attr("transform",
+                            "translate(" + margin.left + "," + margin.top + ")");
+                //debugger;
+                data.sort(compare2);
+
+                var x = d3.scaleBand()
+                .domain(data.map(cantidades))
+                .range([0, width + margin.top])
+                svg.append("g").call(d3.axisBottom(x)).attr("transform", "translate(" + 0 + ", " + (height) + ")")
+                
+                data.sort(compare);
+                
+                dominioEjeY = data.map(tiempos); dominioEjeY.push(0);
+                
+                var y = d3.scalePoint()
+                    .domain(dominioEjeY)
+                    .range([0,height])
+                svg.append("g").call(d3.axisLeft(y))
+
+                svg.selectAll("mybar")
+                    .data(data)
+                    .enter()
+                    .append("rect")
+                        .attr("x", d => x(cantidades(d)))
+                        .attr("y", d => y(tiempos(d)))
+                        .attr("width", x.bandwidth())
+                        .attr("height", function(d) { return height - y(d.Tiempo); })
+                        .attr("fill", "#69b3a2")
+            }
+
+            function cambiarGrafico() {
+                console.log(datos1, datos2);
+                if (actual) {
+                    actual = false;
+                    probabilistico(datos2);
+                } else {
+                    actual = true;
+                    greedy(datos1);
+                }
+            }
+
+            leerDatos();
+        </script>
+    </body>
+</html>

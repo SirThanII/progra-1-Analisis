@@ -22,11 +22,17 @@ public class main {
         
         System.out.println("########################## PRUEBA " + actualTest + " ##################################");
         PlanToFollow plan = new PlanToFollow();
-        // EL tiempo se trabaja en seconds
-        plan.choosePlan(trees[1], 15, 300);
+        try {
+            // EL tiempo se trabaja en seconds
+            plan.choosePlan(trees[2], 15, 300);
+        } catch (IOException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         actualTest++;
         ArrayList<TestTree> selecTree = plan.getSelectedTrees();
         ArrayList<Squad> squads = plan.getOrden();
+        
         final JFrame frame = new JFrame("L Systems - Tree Fractal");
         Sketch s = new Sketch(selecTree, squads);
         frame.setContentPane(s);
@@ -37,7 +43,6 @@ public class main {
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         frame.setUndecorated(true);
         frame.setVisible(true);
-        s.animation();
         try {
             System.in.read();
         } catch (IOException ex) {

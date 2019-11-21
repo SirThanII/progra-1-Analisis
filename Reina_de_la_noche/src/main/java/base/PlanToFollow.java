@@ -63,10 +63,19 @@ public class PlanToFollow {
     }
     */
     
-    public void choosePlan(ArrayList<TestTree> trees, int distace, double time){
+    public void choosePlan(ArrayList<TestTree> trees, int distace, double time) throws IOException{
+        FileWriter csvWriter = new FileWriter("Resultados.csv", true);
+        long timeStart = System.currentTimeMillis();
         int score=GreedyPlan(trees, distace, time);
+        long timeEnd = System.currentTimeMillis();
+        csvWriter.append(Integer.toString(trees.size()) + "," + Long.toString(timeEnd-timeStart) + ","+"1\n");
         ProbGetter pg=new ProbGetter(trees);
+        timeStart = System.currentTimeMillis();
         pg.calRoute((int)time);
+        timeEnd = System.currentTimeMillis();
+        csvWriter.append(Integer.toString(trees.size()) + "," + Long.toString(timeEnd-timeStart) + ","+"2\n");
+        csvWriter.flush();
+        csvWriter.close();
         if(score<=pg.score){
             System.out.println("Probabilistic won");
             selectedTrees=pg.getChosenTrees();
