@@ -156,6 +156,7 @@ public class PlanToFollow {
             }
 
             Squad actualSquad  = new Squad(totalAnts, (int)trees.get(actualObject).getID(), actualTime, actualTime + (totalAnts * timeSpend));
+            orden.add(actualSquad);
             actualTime += totalAnts * timeSpend;
             System.out.println("Harvest Duration: " + actualTime);
             
@@ -169,5 +170,14 @@ public class PlanToFollow {
             }
         }
     }
+
+    public ArrayList<Squad> getOrden() {
+        return orden;
+    }
+
+    public ArrayList<TestTree> getSelectedTrees() {
+        return selectedTrees;
+    }
+    
 }
 

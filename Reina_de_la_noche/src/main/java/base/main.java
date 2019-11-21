@@ -1,14 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package base;
 
 import common.TestGenerator;
 import common.TestTree;
 import interfaz.Sketch;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
 import processing.core.PApplet;
 
 /**
@@ -19,15 +18,36 @@ public class main {
     public static void main(String[] args) {
         TestGenerator generator = new TestGenerator();
         ArrayList<TestTree>[] trees = generator.getTests();
-        PlanToFollow plan = new PlanToFollow();
         int actualTest = 1;
-        for(ArrayList<TestTree> tree: trees) {
-            System.out.println("########################## PRUEBA " + actualTest + " ##################################");
-            // EL tiempo se trabaja en seconds
-            plan.GreedyPlan(tree, 15, 300);
-            actualTest++;
-        }
         
-        new Sketch().setVisible(true);
+        System.out.println("########################## PRUEBA " + actualTest + " ##################################");
+        PlanToFollow plan = new PlanToFollow();
+        // EL tiempo se trabaja en seconds
+        plan.GreedyPlan(trees[1], 15, 300);
+        actualTest++;
+        ArrayList<TestTree> selecTree = plan.getSelectedTrees();
+        ArrayList<Squad> squads = plan.getOrden();
+        final JFrame frame = new JFrame("L Systems - Tree Fractal");
+        Sketch s = new Sketch(selecTree, squads);
+        frame.setContentPane(s);
+        //frame.setSize(1000, 700);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setResizable(true);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        frame.setUndecorated(true);
+        frame.setVisible(true);
+        s.animation();
+        try {
+            System.in.read();
+        } catch (IOException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        frame.dispose();
+
+        
+        
+        
+        //new Sketch().setVisible(true);
     }
 }

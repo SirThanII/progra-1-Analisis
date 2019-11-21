@@ -14,7 +14,7 @@ public class Globals {
     public static final int MINCOUNT=0;
     public static final int ONE=1;
     public static final int PAIR=2;
-    public static final int VELOCITY=10; //VELOCITY PER ANTS (M/S)
+    public static final int VELOCITY=30; //VELOCITY PER ANTS (M/S)
     public static final int AMOUNTOFANTS=60; //AMOUNT OF ANTS PER ITERACTION
     public static final int AMOUNTOFSQUADS=4; //AMOUNT OF ANTS PER SQUAD
     
@@ -27,6 +27,8 @@ public class Globals {
     public static final int MS_CONVERTION = 1000;
     
     public static final int ANGLE = 25;
+    public static final int REFRESH_TIME = 3;
+    
     //WE ARE GOING TO WORK EVERYTHING BY 1 UNIT
     
 }

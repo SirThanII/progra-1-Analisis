@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package base;
+import common.ITestConstants;
 
 /**
  *
@@ -15,12 +16,16 @@ public class Squad {
     private float firstTime;//tiempo de la primera hormiga
     private float lastTime;//tiempo de la ultima hormiga
     private float takeOffTime;//tiempo en que el squad sale
+    private int[] firstPosX;
+    private int[] lastPosX;
 
     public Squad(int ammountOfMembers, int id, float firstTime, float lastTime) {
         this.ammountOfMembers = ammountOfMembers;
         this.id = id;
         this.firstTime = firstTime;
         this.lastTime = lastTime;
+        this.firstPosX = new int[2];
+        this.firstPosX = new int[2];
     }
 
     public int getAmmountOfMembers() {
@@ -62,7 +67,21 @@ public class Squad {
     public float getTakeOffTime() {
         return takeOffTime;
     }
-    
-    
+
+    public int[] getFirstPosX() {
+        return firstPosX;
+    }
+
+    public void setFirstPosX(int[] firstPosX) {
+        this.firstPosX = firstPosX;
+    }
+
+    public int[] getLastPosX() {
+        return lastPosX;
+    }
+
+    public void setLastPosX(int[] lastPosX) {
+        this.lastPosX = lastPosX;
+    }
     
 }
