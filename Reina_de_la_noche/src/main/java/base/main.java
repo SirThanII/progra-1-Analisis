@@ -24,7 +24,7 @@ public class main {
         for(ArrayList<TestTree> tree: trees) {
             System.out.println("########################## PRUEBA " + actualTest + " ##################################");
             // EL tiempo se trabaja en seconds
-            plan.GreedyPlan(tree, 15, 300);
+            plan.choosePlan(tree, 15, 300);
             actualTest++;
         }
         

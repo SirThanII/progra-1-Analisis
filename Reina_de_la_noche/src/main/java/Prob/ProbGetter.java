@@ -27,10 +27,11 @@ public class ProbGetter {
     private static final Random RAND = new Random();
     private static final int MIL=1000;
     private final ArrayList<TestTree> arboles;//todos los arboles
-    private final ArrayList<TestTree> chosenTrees=new ArrayList<>();
-    private final ArrayList<Squad> squads=new ArrayList<>();
+    private ArrayList<TestTree> chosenTrees=new ArrayList<>();
+    private ArrayList<Squad> squads=new ArrayList<>();
     private final HashMap<Integer,ArrayList<TestTree>> Groups=new HashMap<>();
     private final LinkedHashMap<Integer,Double> PorcentajeGroups=new LinkedHashMap<>();
+    public int score;
     private String FileToCSV;
     
     public ProbGetter(ArrayList<TestTree> parboles){
@@ -161,6 +162,7 @@ public class ProbGetter {
             totalleafs+=totalAnts;
 
             Squad actualSquad  = new Squad(totalAnts, (int)chosenTrees.get(actualObject).getID(), actualTime, actualTime + timeSpend);
+            squads.add(actualSquad);
             actualTime += timeSpend;
             System.out.println("Harvest Duration: " + actualTime);
             
@@ -177,6 +179,7 @@ public class ProbGetter {
             //selectedTrees.add(selectedTree);
         }
         System.out.println("final ammount: "+ totalleafs);
+        score=totalleafs;
     }
     
     public void printOrden(){

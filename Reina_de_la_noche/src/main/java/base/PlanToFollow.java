@@ -22,8 +22,8 @@ import java.util.logging.Logger;
  * @author jonac
  */
 public class PlanToFollow {
-    private final ArrayList<Squad> orden;//orden en el que saldran
-    private final ArrayList<TestTree> selectedTrees;
+    private ArrayList<Squad> orden;//orden en el que saldran
+    private ArrayList<TestTree> selectedTrees;
     
     public PlanToFollow(){
         orden = new ArrayList<>();
@@ -64,13 +64,19 @@ public class PlanToFollow {
     */
     
     public void choosePlan(ArrayList<TestTree> trees, int distace, double time){
-        GreedyPlan(trees, distace, time);
+        int score=GreedyPlan(trees, distace, time);
         ProbGetter pg=new ProbGetter(trees);
         pg.calRoute((int)time);
-        
+        if(score<=pg.score){
+            System.out.println("Probabilistic won");
+            selectedTrees=pg.getChosenTrees();
+            orden=pg.getSquads();            
+        }else{
+            System.out.println("Greedy won");
+        }         
     }
     
-    public void GreedyPlan(ArrayList<TestTree> trees, int distace, double time) {
+    public int GreedyPlan(ArrayList<TestTree> trees, int distace, double time) {
         long timeStart = System.currentTimeMillis();
         long timeForRanges = System.currentTimeMillis();
         
@@ -172,6 +178,7 @@ public class PlanToFollow {
             System.out.println("Amout of Ants: " + totalAnts);
 
             Squad actualSquad  = new Squad(totalAnts, (int)trees.get(actualObject).getID(), actualTime, actualTime + timeSpend);
+            orden.add(actualSquad);
             actualTime += timeSpend;
             System.out.println("Harvest Duration: " + actualTime);
             
@@ -190,6 +197,7 @@ public class PlanToFollow {
         }
         System.out.println("Amount of trees harvest: " + (actualObject - 1));
         System.out.println("Amount of leafs harvest: " + leafsHarvest);
+        return leafsHarvest;
     }
 }
 
