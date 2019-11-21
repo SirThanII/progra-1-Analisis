@@ -26,7 +26,7 @@ public class Sketch extends PApplet {
         frameRate(30);
         stroke(255);
         // Let's pick an angle 0 to 90 degrees based on the mouse position
-        float a = (mouseX / (float) width) * 90f;
+        float a = (320 / (float) width) * 90f;
         // Convert it to radians
         theta = radians(a);
         // Start the tree from the bottom of the screen

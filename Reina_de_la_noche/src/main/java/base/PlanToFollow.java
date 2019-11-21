@@ -18,7 +18,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class PlanToFollow {
     private final ArrayList<Squad> orden;//orden en el que saldran
-    private final ArrayList<Arbol> selectedTrees;
+    private final ArrayList<TestTree> selectedTrees;
     
     public PlanToFollow(){
         orden = new ArrayList<>();
@@ -64,6 +64,7 @@ public class PlanToFollow {
         int maxLeafAmount = 0;
         float lowestHeight = 0;
         int closestTree = 0;
+        int idTree = 1;
         
         // Tiempo limite de las hormigas
         float planTimeLimit = (float) (time * Globals.PLANNING_PERCENTAJE);
@@ -75,6 +76,7 @@ public class PlanToFollow {
         double timePerSquad = antsTimeLimit * Globals.PLANNING_PERCENTAJE; //20% por squad del tiempo para recoleccion, solo 4 squads
         
         for (TestTree tree: trees) {
+            tree.setID(idTree);
             if (lowestHeight == 0 || tree.getTreeHeight() < lowestHeight) {
                 lowestHeight = tree.getTreeHeight();
             }
@@ -83,7 +85,8 @@ public class PlanToFollow {
             }
             if (tree.getPosX() > closestTree) {
                 closestTree = tree.getPosX();
-            } 
+            }
+            idTree++;
         }
         
         for (TestTree tree: trees) {
@@ -131,7 +134,7 @@ public class PlanToFollow {
                 forceHarvest = true;
             }
             
-            float totalDistance = selectedTree.getLength() + (common.ITestConstants.TEST_POSICION_HORMIGUERO - selectedTree.getPosX());
+            float totalDistance = (selectedTree.getLength() + (common.ITestConstants.TEST_POSICION_HORMIGUERO - selectedTree.getPosX())) * 2;
             float timeSpend = (totalDistance / Globals.VELOCITY);
             int totalAnts = (int)timePerSquad / (int)timeSpend;
             
@@ -142,7 +145,7 @@ public class PlanToFollow {
                 wastes = true;
             }
 
-            System.out.println("Actual Tree: " + actualObject);
+            System.out.println("Actual Tree: " + trees.get(actualObject).getID());
             System.out.println("Amount of leafs: " + selectedTree.getAmountOfLeaves());
             System.out.println("Total distance: " + totalDistance);
             System.out.println("Amout of Ants: " + totalAnts);
@@ -152,7 +155,7 @@ public class PlanToFollow {
                 System.out.println("Ants left from the asignation: " + antsLeft);
             }
 
-            Squad actualSquad  = new Squad(totalAnts, actualObject, actualTime, actualTime + (totalAnts * timeSpend));
+            Squad actualSquad  = new Squad(totalAnts, (int)trees.get(actualObject).getID(), actualTime, actualTime + (totalAnts * timeSpend));
             actualTime += totalAnts * timeSpend;
             System.out.println("Harvest Duration: " + actualTime);
             
@@ -160,6 +163,7 @@ public class PlanToFollow {
             System.out.println("Amount of leafs after the squad recolection: " + selectedTree.getAmountOfLeaves());
             System.out.println("-------------------------------");
             actualObject++;
+            selectedTrees.add(selectedTree);
             if(forceHarvest){
                 break;
             }

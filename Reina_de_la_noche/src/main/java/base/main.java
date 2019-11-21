@@ -24,10 +24,10 @@ public class main {
         for(ArrayList<TestTree> tree: trees) {
             System.out.println("########################## PRUEBA " + actualTest + " ##################################");
             // EL tiempo se trabaja en seconds
-            plan.GreedyPlan(tree, 15, 60);
+            plan.GreedyPlan(tree, 15, 300);
             actualTest++;
         }
-        Sketch sketch = new Sketch();
+        
         PApplet.main(new String[] {"--present", "interfaz.Sketch"});
     }
 }
