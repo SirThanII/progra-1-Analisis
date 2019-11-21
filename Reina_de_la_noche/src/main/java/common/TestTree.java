@@ -8,7 +8,8 @@ public class TestTree {
     double leafLength;
     int amountOfLeaves;
     float score;
-    float treeHeight;
+    Float treeHeight;
+    int ID;
 
     public TestTree(int pPosX, int pLength, int pLevels) {
         this.posX = pPosX;
@@ -56,7 +57,7 @@ public class TestTree {
         this.amountOfLeaves = amountOfLeaves;
     }
 
-    public float getScore() {
+    public Float getScore() {
         return score;
     }
 
@@ -72,6 +73,10 @@ public class TestTree {
         this.treeHeight = treeHeight;
     }
 
+    public int getID() {
+        return ID;
+    }
+    
     @Override
     public String toString() {
         return "TestTree{" + "posX=" + posX + ", length=" + length + ", levels=" + levels + ", leafLength=" + leafLength + ", amountOfLeaves=" + amountOfLeaves + ", score=" + score + ", treeHeight=" + treeHeight + '}';
