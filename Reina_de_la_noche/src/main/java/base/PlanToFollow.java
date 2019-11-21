@@ -7,11 +7,15 @@ package base;
 
 import Prob.ProbGetter;
 import common.TestTree;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -68,6 +72,8 @@ public class PlanToFollow {
     
     public void GreedyPlan(ArrayList<TestTree> trees, int distace, double time) {
         long timeStart = System.currentTimeMillis();
+        long timeForRanges = System.currentTimeMillis();
+        
         int maxLeafAmount = 0;
         double lowestHeight = 0;
         int closestTree = 0;
@@ -110,7 +116,8 @@ public class PlanToFollow {
         
         //Sort by the score obtain
         trees.sort(Comparator.comparing(TestTree::getScore).reversed());
-        
+        long timeDiference3 = System.currentTimeMillis() - timeStart;
+        System.out.println(" ---- !!! Tiempo de Planeamiento !!! ---- " + timeDiference3);
         //Creating and sending squads
         System.out.println("-------------------------------");
         System.out.println("    Time: " + time);
@@ -120,6 +127,8 @@ public class PlanToFollow {
         
         float actualTime = 0;
         int actualObject = 1;
+        int leafsHarvest = 0;
+        int lastAmount = 0;
         for(TestTree selectedTree: trees){
             long timeDiference = System.currentTimeMillis() - timeStart;
             float timeLeft = 0, antsLeft = 0;
@@ -149,6 +158,8 @@ public class PlanToFollow {
             double timeSpend = timePerAnt * totalAnts;
             
             
+            long currentMillis = System.currentTimeMillis();
+            
             if(actualTime + timeSpend > antsTimeLimit){
                 timeSpend = antsTimeLimit - actualTime;
                 totalAnts = (int)timeSpend / (int)timePerAnt;
@@ -168,12 +179,17 @@ public class PlanToFollow {
             System.out.println("Amount of leafs after the squad recolection: " + selectedTree.getAmountOfLeaves());
             System.out.println("-------------------------------");
             actualObject++;
+            leafsHarvest += totalAnts;
             selectedTrees.add(selectedTree);
             if(forceHarvest){
                 break;
             }
+            if (System.currentTimeMillis() - timeForRanges > 2000) {
+                continue;
+            }
         }
         System.out.println("Amount of trees harvest: " + (actualObject - 1));
+        System.out.println("Amount of leafs harvest: " + leafsHarvest);
     }
 }
 
