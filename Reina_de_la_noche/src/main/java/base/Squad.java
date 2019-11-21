@@ -22,8 +22,6 @@ public class Squad {
         this.id = id;
         this.firstTime = firstTime;
         this.lastTime = lastTime;
-        this.firstPosX = new int[2];
-        this.firstPosX = new int[2];
     }
 
     public int getAmmountOfMembers() {
@@ -66,7 +64,7 @@ public class Squad {
         return takeOffTime;
     }
 
-    public int[] getFirstPosX() {
+    /*public int[] getFirstPosX() {
         return firstPosX;
     }
 
@@ -80,6 +78,6 @@ public class Squad {
 
     public void setLastPosX(int[] lastPosX) {
         this.lastPosX = lastPosX;
-    }
+    }*/
     
 }

@@ -23,7 +23,7 @@ public class main {
         System.out.println("########################## PRUEBA " + actualTest + " ##################################");
         PlanToFollow plan = new PlanToFollow();
         // EL tiempo se trabaja en seconds
-        plan.GreedyPlan(trees[1], 15, 300);
+        plan.choosePlan(trees[1], 15, 300);
         actualTest++;
         ArrayList<TestTree> selecTree = plan.getSelectedTrees();
         ArrayList<Squad> squads = plan.getOrden();

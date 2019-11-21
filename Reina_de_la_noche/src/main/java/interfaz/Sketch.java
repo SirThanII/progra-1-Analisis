@@ -79,8 +79,8 @@ public class Sketch extends JPanel {
             while (true) {
                 if (seconds == firstTime) {
                     System.out.println("Primer update");
-                    actualSquad.setFirstPosX(new int[]{treePos-1, getHeight()-40});
-                    actualSquad.setLastPosX(new int[]{(int)((treePos-1) * 1.20), getHeight()-40});
+                    //actualSquad.setFirstPosX(new int[]{treePos-1, getHeight()-40});
+                    //actualSquad.setLastPosX(new int[]{(int)((treePos-1) * 1.20), getHeight()-40});
                     animationOn = true;
                     validate();
                     repaint();
@@ -90,8 +90,8 @@ public class Sketch extends JPanel {
                 
                 else if (seconds == secondTIme) {
                     System.out.println("second update");
-                    actualSquad.setLastPosX(new int[]{(treePos), getHeight()-40});
-                    actualSquad.setFirstPosX(new int[]{(int)(treePos * 1.20), getHeight()-40}); // line size
+                   // actualSquad.setLastPosX(new int[]{(treePos), getHeight()-40});
+                   // actualSquad.setFirstPosX(new int[]{(int)(treePos * 1.20), getHeight()-40}); // line size
                     animationOn = true;
                     validate();
                     repaint();
@@ -171,10 +171,10 @@ public class Sketch extends JPanel {
         if(!squadsOrder.isEmpty() && !animationOn){
             System.out.println("Perro");
             Squad s = squadsOrder.get(0);
-            int[] firstPos = s.getFirstPosX();
-            int[] lastPos = s.getLastPosX();
+            //int[] firstPos = s.getFirstPosX();
+            //int[] lastPos = s.getLastPosX();
             g.setColor(Color.RED);
-            g.drawLine(firstPos[0], firstPos[1], lastPos[0], lastPos[1]);
+            //g.drawLine(firstPos[0], firstPos[1], lastPos[0], lastPos[1]);
         }
     }
 }
